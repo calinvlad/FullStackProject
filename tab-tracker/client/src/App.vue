@@ -33,4 +33,14 @@ export default {
 .danger-alert {
   color: red;
 }
+.center {
+  margin: 0 auto;
+}
+
+@media (min-width: 0) {
+  .flex.offset-xs3 {
+    margin-right: 25%
+  }
+}
+
 </style>

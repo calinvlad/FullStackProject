@@ -12,11 +12,13 @@
     </v-toolbar-title>
 
   <!-- IMPLEMENT ME -->
-    <!-- <v-toolbar-items>
-      <v-btn flat dark class="cyan">
-        Browser
+    <v-toolbar-items>
+      <v-btn
+      :to="{name: 'songs'}"
+      flat dark class="cyan">
+        Browse
       </v-btn>
-    </v-toolbar-items> -->
+    </v-toolbar-items>
 
     <v-spacer></v-spacer>
     <v-toolbar-items>

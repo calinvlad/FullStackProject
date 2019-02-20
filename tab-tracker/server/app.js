@@ -18,8 +18,7 @@ app.post('/register', (req, res) => {
              response: `Your user was registered as: ${req.body.email}`})
 })
 
-
-sequelize.sync() 
+sequelize.sync({force: false}) 
   .then(() => {
     app.listen(port, () => {
       console.log('You are on port ' + port)
