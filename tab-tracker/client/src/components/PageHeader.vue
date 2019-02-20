@@ -21,6 +21,7 @@
     <v-spacer></v-spacer>
     <v-toolbar-items>
       <v-btn
+        v-if="!$store.state.isUserLoggedIn"
         flat
         dark
         :to="{
@@ -29,8 +30,16 @@
         Login
       </v-btn>
 
-      <v-btn flat dark :to="{name: 'register'}">
+      <v-btn
+      v-if="!$store.state.isUserLoggedIn"
+      flat dark :to="{name: 'register'}">
         SignUp
+      </v-btn>
+
+      <v-btn
+      v-if="$store.state.isUserLoggedIn"
+      flat dark @click="logout">
+        Log Out
       </v-btn>
     </v-toolbar-items>
   </v-toolbar>
@@ -38,6 +47,15 @@
 
 <script>
 export default {
+  methods: {
+    logout () {
+      this.$store.dispatch('setToken', null)
+      this.$store.dispatch('setUser', null)
+      this.$router.push({
+        name: 'home'
+      })
+    }
+  }
 }
 </script>
 
