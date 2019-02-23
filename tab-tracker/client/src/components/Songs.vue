@@ -28,7 +28,7 @@
               <v-btn
               :to="{name: 'song', params: {songId: song.id}}"
               class="cyan" dark>
-              Register
+              View
               </v-btn>
             </v-flex>
 
@@ -65,8 +65,8 @@ export default {
 
 <style lang="sass" scoped>
 .album-image
-  // width: 70%
-  // height: 100%
+  width: 70%
+  // height: 70%
   margin: 0 auto
 
 .song
