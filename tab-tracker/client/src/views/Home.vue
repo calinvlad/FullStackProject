@@ -7,7 +7,7 @@
 // @ is an alias to /src
 
 export default {
-  name: 'home',
+  name: 'songs',
   components: {
   }
 }

@@ -14,13 +14,25 @@
 
         <v-btn
         class="cyan" dark
-        @click="navigateTo ({
+        :to="{
           name: 'song-edit',
-          params: {
-            songId: song.id
+          params () {
+            return {
+              songId: song.id
+            }
           }
-        })"
+        }"
         >Edit</v-btn>
+        <v-btn
+        v-if="isUserLoggedIn && !bookmark"
+        class="cyan" dark
+        @click="setAsBookmark"
+        >Bookmark</v-btn>
+        <v-btn
+        v-if="isUserLoggedIn && bookmark"
+        class="cyan" dark
+        @click="unsetAsBookmark"
+        >Unbookmark</v-btn>
       </v-flex>
       <v-flex xs6>
         <img :src="song.albumImageUrl" class="album-image">
@@ -32,16 +44,60 @@
 </template>
 
 <script>
-import Panel from '@/components/Panel'
+import { mapState } from 'vuex'
+import BookmarksService from '@/services/BookmarksService'
 export default {
   props: ['song'],
-  methods: {
-    navigateTo (route) {
-      this.$router.push(route)
+  data () {
+    return {
+      bookmark: null
     }
   },
-  components: {
-    Panel
+  computed: {
+    ...mapState([
+      'isUserLoggedIn',
+      'user'
+    ])
+  },
+  watch: {
+    async song () {
+      if (!this.isUserLoggedIn) {
+        return
+      }
+      try {
+        const bookmarks = (await BookmarksService.index({
+          songId: this.song.id,
+          userId: this.user.id
+        })).data
+        if (bookmarks.length) {
+          this.bookmark = bookmarks[0]
+        }
+      } catch (err) {
+        console.log(err)
+      }
+    }
+  },
+  methods: {
+    async setAsBookmark () {
+      try {
+        this.bookmark = (await BookmarksService.post({
+          songId: this.song.id
+          // userId: this.user.id
+        })).data
+      } catch (err) {
+        console.log(err)
+      }
+    },
+    async unsetAsBookmark () {
+      try {
+        await BookmarksService.delete(this.bookmark.id)
+        this.bookmark = null
+      } catch (err) {
+        console.log(err)
+      }
+    }
+  },
+  async mounted () {
   }
 }
 </script>

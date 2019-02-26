@@ -11,6 +11,8 @@ app.use(morgan('combined'))
 app.use(bodyParser.json())
 app.use(cors())
 
+require('./passport.js')
+
 require('./routes')(app)
 
 app.post('/register', (req, res) => {

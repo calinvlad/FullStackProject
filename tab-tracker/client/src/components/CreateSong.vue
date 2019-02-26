@@ -65,7 +65,6 @@
 </template>
 
 <script>
-import Panel from '@/components/Panel'
 import SongsService from '@/services/SongsService'
 export default {
   data () {
@@ -85,9 +84,6 @@ export default {
       },
       error: null
     }
-  },
-  components: {
-    Panel
   },
   methods: {
     async create () {

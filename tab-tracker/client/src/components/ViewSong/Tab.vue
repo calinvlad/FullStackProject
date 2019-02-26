@@ -8,12 +8,8 @@
 </template>
 
 <script>
-import Panel from '@/components/Panel'
 export default {
-  props: ['tabs'],
-  components: {
-    Panel
-  }
+  props: ['tabs']
 }
 </script>
 
